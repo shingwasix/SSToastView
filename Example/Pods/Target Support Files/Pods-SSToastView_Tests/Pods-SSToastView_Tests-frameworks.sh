@@ -53,15 +53,7 @@ code_sign_if_enabled() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework 'Pods-SSToastView_Tests/SSToastView.framework'
-  install_framework 'Pods-SSToastView_Tests/Expecta.framework'
-  install_framework 'Pods-SSToastView_Tests/Expecta_Snapshots.framework'
-  install_framework 'Pods-SSToastView_Tests/FBSnapshotTestCase.framework'
-  install_framework 'Pods-SSToastView_Tests/Specta.framework'
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework 'Pods-SSToastView_Tests/SSToastView.framework'
-  install_framework 'Pods-SSToastView_Tests/Expecta.framework'
-  install_framework 'Pods-SSToastView_Tests/Expecta_Snapshots.framework'
-  install_framework 'Pods-SSToastView_Tests/FBSnapshotTestCase.framework'
-  install_framework 'Pods-SSToastView_Tests/Specta.framework'
 fi
