@@ -1,0 +1,15 @@
+source 'https://github.com/CocoaPods/Specs.git'
+use_frameworks!
+
+target 'SSToastView_Example', :exclusive => true do
+  pod "SSToastView", :path => "../"
+end
+
+target 'SSToastView_Tests', :exclusive => true do
+  pod "SSToastView", :path => "../"
+
+  pod 'Specta'
+  pod 'Expecta'
+  pod 'FBSnapshotTestCase'
+  pod 'Expecta+Snapshots'
+end
