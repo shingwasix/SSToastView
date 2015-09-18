@@ -16,7 +16,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Sreen Shot
 
-![screen_shot](https://github.com/shingwasix/SSToastView/raw/1.0/screen_shot.png)
+![screen_shot](https://github.com/shingwasix/SSToastView/raw/1.1/screen_shot.png)
 
 ## Installation
 
