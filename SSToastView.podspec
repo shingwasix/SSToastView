@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SSToastView"
-  s.version          = "1.0"
+  s.version          = "1.1"
   s.summary          = "Toast for iOS."
   s.homepage         = "https://github.com/shingwasix/SSToastView"
   s.license          = 'MIT'

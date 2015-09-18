@@ -9,7 +9,7 @@ PODS:
   - FBSnapshotTestCase/SwiftSupport (2.0.4):
     - FBSnapshotTestCase/Core
   - Specta (1.0.3)
-  - SSToastView (1.0)
+  - SSToastView (1.1)
 
 DEPENDENCIES:
   - Expecta
@@ -27,6 +27,6 @@ SPEC CHECKSUMS:
   Expecta+Snapshots: 29b38dd695bc72a0ed2bea833937d78df41943ba
   FBSnapshotTestCase: d94cf34841c9e77390e29009e8e2713479d48753
   Specta: cf3e4188cf35375c3ee2cd03f8db8f1f4ef98234
-  SSToastView: 16f47844a5d2eb8806c6e2c00d90df3ffdf26263
+  SSToastView: 1257e76f76db99571f741494f6816780c89f0303
 
 COCOAPODS: 0.38.2
