@@ -7,4 +7,6 @@ end
 
 target 'SSToastView_Tests', :exclusive => true do
   pod "SSToastView", :path => "../"
+
+  
 end
