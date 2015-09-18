@@ -1,0 +1,6 @@
+framework module SSToastView {
+  umbrella header "SSToastView-umbrella.h"
+
+  export *
+  module * { export * }
+}

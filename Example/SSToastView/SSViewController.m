@@ -7,9 +7,12 @@
 //
 
 #import "SSViewController.h"
+#import "SSToastView.h"
 
 @interface SSViewController ()
+@property (weak, nonatomic) IBOutlet UITextField *messageTextField;
 
+- (IBAction)showAction:(id)sender;
 @end
 
 @implementation SSViewController
@@ -17,13 +20,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
 }
 
-- (void)didReceiveMemoryWarning
+- (void)viewDidAppear:(BOOL)animated
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [super viewDidAppear:animated];
+    
+    [SSToastView show:@"啦啦啦啦啦啦啦～"];
+}
+
+- (IBAction)showAction:(id)sender
+{
+    [SSToastView show:self.messageTextField.text];
 }
 
 @end
