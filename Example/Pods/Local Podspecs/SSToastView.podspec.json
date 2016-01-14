@@ -1,6 +1,6 @@
 {
   "name": "SSToastView",
-  "version": "1.1",
+  "version": "1.2",
   "summary": "Toast for iOS.",
   "homepage": "https://github.com/shingwasix/SSToastView",
   "license": "MIT",
@@ -9,10 +9,10 @@
   },
   "source": {
     "git": "https://github.com/shingwasix/SSToastView.git",
-    "tag": "1.1"
+    "tag": "1.2"
   },
   "platforms": {
-    "ios": "5.0"
+    "ios": "6.0"
   },
   "requires_arc": true,
   "source_files": "Pod/Classes/**/*",

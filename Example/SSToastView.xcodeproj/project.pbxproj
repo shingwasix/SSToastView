@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		51B78C9E0A3513C5826357F8 /* Pods_SSToastView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131ABF1E6AB7F5E593342AE7 /* Pods_SSToastView_Example.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		51B78C9E0A3513C5826357F8 /* Pods_SSToastView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 131ABF1E6AB7F5E593342AE7 /* Pods_SSToastView_Example.framework */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -22,7 +22,7 @@
 		6003F5BA195388D20070C39A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6003F5B8195388D20070C39A /* InfoPlist.strings */; };
 		6003F5BC195388D20070C39A /* Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6003F5BB195388D20070C39A /* Tests.m */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
-		DA7CA328157AFFF000C0374F /* Pods_SSToastView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734E15B40A16E0BB4AD49DCB /* Pods_SSToastView_Tests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		DA7CA328157AFFF000C0374F /* Pods_SSToastView_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 734E15B40A16E0BB4AD49DCB /* Pods_SSToastView_Tests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */

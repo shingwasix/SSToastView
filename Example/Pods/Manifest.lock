@@ -1,14 +1,14 @@
 PODS:
-  - SSToastView (1.1)
+  - SSToastView (1.2)
 
 DEPENDENCIES:
   - SSToastView (from `../`)
 
 EXTERNAL SOURCES:
   SSToastView:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  SSToastView: 1257e76f76db99571f741494f6816780c89f0303
+  SSToastView: edef22921a4b9b6e80a98361890721035b03a305
 
-COCOAPODS: 0.38.2
+COCOAPODS: 0.39.0
