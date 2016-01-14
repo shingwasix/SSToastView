@@ -9,33 +9,26 @@
 #import "SSToastView.h"
 
 @interface SSToastView ()
+
 @property (weak, nonatomic) UILabel *textLabel;
+
 @end
 
 @implementation SSToastView
 
 + (instancetype)shareInstance
 {
-    static SSToastView *_shareInstance = nil;
+    static id shareInstance = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        _shareInstance = [[SSToastView alloc] initWithFrame:CGRectMake(0, 30, [UIScreen mainScreen].bounds.size.width, 28)];
-        _shareInstance.alpha = 0.0;
-        [[UIApplication sharedApplication].keyWindow addSubview:_shareInstance];
+        shareInstance = [self new];
     });
-    return _shareInstance;
+    return shareInstance;
 }
 
-+ (instancetype)toastView
++ (void)load
 {
-    SSToastView *toastView = [[SSToastView alloc] initWithFrame:CGRectMake(0, 30, [UIScreen mainScreen].bounds.size.width, 28)];
-    toastView.alpha = 0.0;
-    return toastView;
-}
-
-+ (void)initialize
-{
-    [[self appearance] setFadeInDuration:1.2f];
+    [[self appearance] setFadeInDuration:0.8f];
     [[self appearance] setFadeOutDuration:0.5f];
     [[self appearance] setDelay:2.4f];
 }
@@ -69,59 +62,76 @@
 
 - (void)setup
 {
-    [[UINavigationBar appearance] setTranslucent:YES];
+    self.translatesAutoresizingMaskIntoConstraints = NO;
+    self.userInteractionEnabled = NO;
+    
+    self.alpha = 0.0;
     
     self.layer.cornerRadius = 5.0;
-    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowColor = [UIColor grayColor].CGColor;
     self.layer.shadowRadius = 2.0;
-    self.layer.shadowOpacity = 0.6;
+    self.layer.shadowOpacity = 0.5;
     self.layer.shadowOffset = CGSizeZero;
     self.backgroundColor = [UIColor colorWithWhite:0 alpha:0.7];
-    CGRect frame = self.frame;
-    frame.origin = CGPointZero;
-    UILabel *textLabel = [[UILabel alloc] initWithFrame:frame];
-    [textLabel setBackgroundColor:[UIColor clearColor]];
-    [textLabel setAutoresizingMask:(UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth)];
-    [textLabel setFont:[UIFont systemFontOfSize:(frame.size.height / 2)]];
-    [textLabel setTextAlignment:NSTextAlignmentCenter];
-    [textLabel setTextColor:[UIColor whiteColor]];
+    
+    UILabel *textLabel = [UILabel new];
+    textLabel.backgroundColor = [UIColor clearColor];
+    textLabel.font = [UIFont systemFontOfSize:14.0];
+    textLabel.textColor = [UIColor whiteColor];
+    textLabel.numberOfLines = 0;
+    textLabel.translatesAutoresizingMaskIntoConstraints = NO;
+    textLabel.userInteractionEnabled = NO;
+    
     [self addSubview:textLabel];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeLeft relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeLeft multiplier:1 constant:8]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeRight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeRight multiplier:1 constant:-8]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeTop multiplier:1 constant:5]];
+    [self addConstraint:[NSLayoutConstraint constraintWithItem:textLabel attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeBottom multiplier:1 constant:-5]];
     self.textLabel = textLabel;
 }
 
 + (void)show:(NSString *)text
 {
-    [[self toastView] show:text];
+    [[self shareInstance] show:text];
 }
 
 - (void)show:(NSString *)text
 {
-    CGSize size = [text sizeWithFont:self.textLabel.font];
-    CGRect frame = self.frame;
-    frame.size.width = size.width + 20;
-    frame.origin.x = ([UIScreen mainScreen].bounds.size.width - frame.size.width) / 2;
-    [self setFrame:frame];
-    
+    if ([[NSThread currentThread] isMainThread]) {
+        [self _show:text];
+    } else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self _show:text];
+        });
+    }
+}
+
+- (void)_show:(NSString *)text
+{
     [self.textLabel setText:text];
     
-    [[UIApplication sharedApplication].keyWindow addSubview:self];
+    if (!self.superview) {
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        [window addSubview:self];
+        [window addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:window attribute:NSLayoutAttributeTop multiplier:1 constant:23]];
+        [window addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeLeading relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:window attribute:NSLayoutAttributeLeading multiplier:1 constant:5]];
+        [window addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:window attribute:NSLayoutAttributeCenterX multiplier:1 constant:0]];
+    }
+    [self layoutIfNeeded];
     
-    [self.layer performSelectorOnMainThread:@selector(removeAllAnimations) withObject:nil waitUntilDone:YES];
+    [self.layer removeAllAnimations];
     
-    __weak typeof(self) weakSelf = self;
-    [UIView animateWithDuration:self.fadeInDuration delay:0.0 options:(UIViewAnimationCurveEaseInOut | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^{
-        weakSelf.alpha = 1.0;
-    } completion:^(BOOL finished) {
-        if (finished) {
-            [UIView animateWithDuration:self.fadeOutDuration delay:self.delay options:0 animations:^{
-                weakSelf.alpha = 0.0;
-            } completion:^(BOOL finished) {
-                [weakSelf removeFromSuperview];
-            }];
-        } else {
-            [weakSelf removeFromSuperview];
-        }
-    }];
+    CAKeyframeAnimation *animation = [CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+    animation.duration = self.fadeInDuration + self.delay + self.fadeOutDuration;
+    animation.values = @[@(0.5),@(1.0),@(1.0),@(0.0)];
+    animation.keyTimes = @[
+                           @(0.0),
+                           @(self.fadeInDuration / animation.duration),
+                           @((self.fadeInDuration + self.delay) / animation.duration),
+                           @(1.0)
+                           ];
+    animation.removedOnCompletion = YES;
+    [self.layer addAnimation:animation forKey:@"SSToastView.animation"];
 }
 
 @end
